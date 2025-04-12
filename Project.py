@@ -100,3 +100,45 @@ plt.legend(title='Gender')
 plt.tight_layout()
 plt.show()
 
+# --- Objective 2: Voter Data Analysis (General, Overseas, Proxy, Postal) --- #
+
+# Filter the data for Voters categories (General, Overseas, Proxy, Postal)
+voters_data = df[df['Category'].str.contains('Voters')]
+
+# Group by Category and sum the values for Men, Women, and Third Gender
+voters_data_grouped = voters_data.groupby('Category').sum()[['Men', 'Women', 'Third Gender']]
+
+# Calculate the total voters (sum of Men, Women, Third Gender)
+voters_data_grouped['Total Voters'] = voters_data_grouped.sum(axis=1)
+
+# Filter out categories with no voters
+filtered_voters_data = voters_data_grouped[voters_data_grouped['Total Voters'] > 0]
+
+# Display the filtered result for better clarity
+print("\nFiltered Total Voters by Category:")
+print(filtered_voters_data)
+
+# Plotting the Total Voters for each category with adjusted y-axis scale
+plt.figure(figsize=(10, 6))
+
+# Plotting the total voters for each category
+filtered_voters_data['Total Voters'].plot(kind='bar', color='lightcoral')
+
+# Adding a title and labels
+plt.title('Total Number of Voters by Category')
+plt.xlabel('Category')
+plt.ylabel('Total Voters')
+
+# Automatically adjust y-axis to fit all values properly
+plt.yscale('linear')
+
+# Adjusting the xticks for better readability
+plt.xticks(rotation=45)
+
+# Adding data labels to bars for clarity
+for index, value in enumerate(filtered_voters_data['Total Voters']):
+    plt.text(index, value, str(int(value)), ha='center', va='bottom')
+
+# Display the plot
+plt.tight_layout()
+plt.show()

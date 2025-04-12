@@ -142,3 +142,36 @@ for index, value in enumerate(filtered_voters_data['Total Voters']):
 # Display the plot
 plt.tight_layout()
 plt.show()
+
+# --- Objective 3: Invalid & Deducted Votes Analysis ---
+
+# Categories of interest
+invalid_deducted_categories = [
+    'Votes - Total Deducted Votes From Evm',
+    'Votes - Postal Votes Deducted'
+]
+
+# Filter relevant data
+invalid_deducted_df = df[df['Category'].isin(invalid_deducted_categories)]
+
+# Calculate total invalid/deducted votes
+invalid_deducted_total = invalid_deducted_df.groupby('Category')[['Men', 'Women', 'Third Gender']].sum().sum(axis=1)
+
+# Display or show a fallback message
+print("\nTotal Invalid & Deducted Votes by Category (Without Gender Breakdown):")
+print(invalid_deducted_total)
+
+# Plot if data is available
+if invalid_deducted_total.sum() > 0:
+    plt.figure(figsize=(10, 6))
+    invalid_deducted_total.plot(kind='bar', color='lightcoral')
+
+    plt.title('Total Invalid & Deducted Votes by Category')
+    plt.xlabel('Category')
+    plt.ylabel('Total Invalid Votes')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+else:
+print("\nNo data available for Invalid or Deducted Votes in the selected categories.")
+

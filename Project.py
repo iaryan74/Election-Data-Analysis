@@ -6,8 +6,7 @@ import numpy as np
 
 #load and clean the data from xlsx file
 
-df = pd.read_csv('C:/Users/aryan/OneDrive/Desktop/temp/git pull origin main --rebase
-')
+df = pd.read_csv('C:/Users/aryan/OneDrive/Desktop/temp/32_Constituency_Data_Summary_Report.csv')
 
 print("Initial Data Overview:")
 print(df.info())

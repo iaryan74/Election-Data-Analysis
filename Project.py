@@ -74,3 +74,29 @@ plt.title('Outlier Detection: Third Gender')
 plt.tight_layout()
 plt.show()
 
+# --- Objective 1: Candidate Category Analysis ---
+
+# Filter relevant candidate categories
+candidate_categories = [
+    'Candidates - Nominated',
+    'Candidates - Nomination Rejected',
+    'Candidates - Withdrawn',
+    'Candidates - Contested'
+]
+
+candidates_df = df[df['Category'].isin(candidate_categories)]
+
+# Group by category and sum gender-wise counts
+grouped = candidates_df.groupby('Category')[['Men', 'Women', 'Third Gender']].sum()
+
+# Plotting with custom colors
+colors = ['#1f77b4', '#ff7f0e', '#d62728']  # Blue for Men, Orange for Women, Red for Third Gender
+grouped.plot(kind='bar', stacked=True, figsize=(10, 6), color=colors)
+plt.title('Gender-wise Distribution of Candidates by Category')
+plt.ylabel('Number of Candidates')
+plt.xlabel('Candidate Category')
+plt.xticks(rotation=45)
+plt.legend(title='Gender')
+plt.tight_layout()
+plt.show()
+

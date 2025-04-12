@@ -175,3 +175,32 @@ if invalid_deducted_total.sum() > 0:
 else:
 print("\nNo data available for Invalid or Deducted Votes in the selected categories.")
 
+
+# Objective 4: Gender Representation in Elections
+# =============================
+
+# Filter data only for "Candidates - Contested"
+contested_candidates = df[df['Category'] == 'Candidates - Contested']
+
+# Sum gender-wise contested candidates
+gender_representation = contested_candidates[['Men', 'Women', 'Third Gender']].sum()
+
+# Display the result
+print("\nTotal Candidates Contested by Gender:")
+print(gender_representation)
+
+# Plotting
+plt.figure(figsize=(8, 6))
+colors = ['skyblue', 'orange', 'red']
+gender_representation.plot(kind='bar', color=colors)
+
+plt.title('Gender Representation Among Contesting Candidates')
+plt.xlabel('Gender')
+plt.ylabel('Number of Candidates')
+plt.xticks(rotation=0)
+plt.tight_layout()
+
+# Show the plot
+plt.show()
+
+

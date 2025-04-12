@@ -203,4 +203,32 @@ plt.tight_layout()
 # Show the plot
 plt.show()
 
+# --- Objective 5: NOTA Votes Analysis ---
+# ============================
+
+# Filter rows for NOTA votes
+nota_df = df[df['Category'].str.contains("Votes - Votes Polled For 'Nota'", case=False, na=False)]
+
+# Check if data is available
+if not nota_df.empty:
+    # Sum NOTA votes across all genders
+    total_nota_votes = nota_df[['Men', 'Women', 'Third Gender']].sum()
+
+    # Calculate total and display
+    total_nota_votes['Total NOTA Votes'] = total_nota_votes.sum()
+    print("\nTotal NOTA Votes by Gender:")
+    print(total_nota_votes)
+
+    # Plotting NOTA votes
+    plt.figure(figsize=(8, 6))
+    total_nota_votes.drop('Total NOTA Votes').plot(kind='bar', color=['skyblue', 'lightgreen', 'salmon'])
+    plt.title("NOTA Votes by Gender")
+    plt.ylabel("Number of Votes")
+    plt.xlabel("Gender")
+    plt.xticks(rotation=0)
+    plt.tight_layout()
+    plt.show()
+else:
+    print("\n No data available for NOTA votes in the dataset.")
+
 
